@@ -21,42 +21,50 @@
       {
         "name": "Classic Burger",
         "description": "Burgeri yn\u00eb klasik me mish t\u00eb fresk\u00ebt, sallat\u00eb, domate dhe salc\u00eb speciale",
-        "tag": "Klasik"
+        "tag": "Klasik",
+        "price": "2.00"
       },
       {
         "name": "Blanko Burger",
         "description": "Specialiteti i sht\u00ebpis\u00eb - receta sekrete e familjes Blanko",
-        "tag": "Bestseller"
+        "tag": "Bestseller",
+        "price": "3.00"
       },
       {
         "name": "Double Burger",
         "description": "Dyfish mishi, dyfish k\u00ebnaq\u00ebsia - p\u00ebr ata q\u00eb duan m\u00eb shum\u00eb",
-        "tag": "Popullar"
+        "tag": "Popullar",
+        "price": "4.00"
       },
       {
         "name": "Burger me mish pule",
         "description": "Mish pule i pjekur n\u00eb m\u00ebnyr\u00eb perfekte me perime t\u00eb fresk\u00ebta",
-        "tag": "I leht\u00eb"
+        "tag": "I leht\u00eb",
+        "price": "2.50"
       },
       {
         "name": "Qebapa",
         "description": "5 cop\u00eb qebapa t\u00eb pjekur n\u00eb zgar\u00eb, recet\u00eb tradicionale",
-        "tag": "5 cop\u00eb"
+        "tag": "5 cop\u00eb",
+        "price": "2.50"
       },
       {
         "name": "Tost",
         "description": "Tost i ngroht\u00eb me djath\u00eb dhe p\u00ebrb\u00ebr\u00ebs sipas d\u00ebshir\u00ebs",
-        "tag": "Klasik"
+        "tag": "Klasik",
+        "price": "1.50"
       },
       {
         "name": "Pomfrit",
         "description": "Patate t\u00eb skuqura, t\u00eb krokanta dhe t\u00eb arta - p\u00ebrsosur",
-        "tag": "An\u00eb"
+        "tag": "An\u00eb",
+        "price": "1.50"
       },
       {
         "name": "Sos\u00eb t\u00eb shpis\u00eb",
         "description": "Sos\u00eb t\u00eb b\u00ebra n\u00eb sht\u00ebpi me receta sekrete familjare",
-        "tag": "Sht\u00ebpiake"
+        "tag": "Sht\u00ebpiake",
+        "price": "0.50"
       }
     ]
   },
@@ -93,6 +101,11 @@
     "hoursText": "E H\u00ebn\u00eb - E Diel",
     "mapPlaceholder": "Google Maps",
     "mapPlaceholderText": "Vendosni Google Maps embed URL k\u00ebtu pasi biznesi t\u00eb regjistrohet n\u00eb Google My Business"
+  },
+  "gallery": {
+    "sectionTag": "Galeria",
+    "title": "Shijoni me sy",
+    "subtitle": "Pamje nga kuzhinat tona dhe produktet e freskëta"
   },
   "footer": {
     "rights": "T\u00eb gjitha t\u00eb drejtat e rezervuara."
