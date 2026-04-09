@@ -4,8 +4,13 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
+import type { Dictionary } from "./dictionaries";
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+type Locale = "sq" | "en";
+
+const menuEmojis = ["🍔", "⭐", "🔥", "🐔", "🥩", "🧀", "🍟", "🫙"];
 
 // ─── Icons ──────────────────────────────────────────────────────────────────
 function BurgerIcon({ className = "w-6 h-6" }: { className?: string }) {
@@ -72,63 +77,38 @@ function StarIcon({ className = "w-4 h-4" }: { className?: string }) {
   );
 }
 
-// ─── Menu Data ──────────────────────────────────────────────────────────────
-const menuItems = [
-  {
-    name: "Classic Burger",
-    description: "Burgeri ynë klasik me mish të freskët, sallatë, domate dhe salcë speciale",
-    emoji: "🍔",
-    tag: "Klasik",
-  },
-  {
-    name: "Blanko Burger",
-    description: "Specialiteti i shtëpisë - receta sekrete e familjes Blanko",
-    emoji: "⭐",
-    tag: "Bestseller",
-  },
-  {
-    name: "Double Burger",
-    description: "Dyfish mishi, dyfish kënaqësia - për ata që duan më shumë",
-    emoji: "🔥",
-    tag: "Popullar",
-  },
-  {
-    name: "Burger me mish pule",
-    description: "Mish pule i pjekur në mënyrë perfekte me perime të freskëta",
-    emoji: "🐔",
-    tag: "I lehtë",
-  },
-  {
-    name: "Qebapa",
-    description: "5 copë qebapa të pjekur në zgarë, recetë tradicionale",
-    emoji: "🥩",
-    tag: "5 copë",
-  },
-  {
-    name: "Tost",
-    description: "Tost i ngrohtë me djathë dhe përbërës sipas dëshirës",
-    emoji: "🧀",
-    tag: "Klasik",
-  },
-  {
-    name: "Pomfrit",
-    description: "Patate të skuqura, të krokanta dhe të arta - përsosur",
-    emoji: "🍟",
-    tag: "Anë",
-  },
-  {
-    name: "Sosë të shpisë",
-    description: "Sosë të bëra në shtëpi me receta sekrete familjare",
-    emoji: "🫙",
-    tag: "Shtëpiake",
-  },
-];
+// ─── Language Switcher ──────────────────────────────────────────────────────
+function LanguageSwitcher({ lang }: { lang: Locale }) {
+  const otherLang = lang === "sq" ? "en" : "sq";
+
+  return (
+    <a
+      href={`/${otherLang}`}
+      className="flex items-center gap-1.5 bg-white/5 border border-white/10 rounded-full px-3 py-1.5 text-xs font-semibold tracking-wide hover:border-blanko-yellow/40 hover:bg-blanko-yellow/5 transition-all duration-300"
+    >
+      <span className={lang === "sq" ? "text-blanko-yellow" : "text-white/50"}>
+        SQ
+      </span>
+      <span className="text-white/20">|</span>
+      <span className={lang === "en" ? "text-blanko-yellow" : "text-white/50"}>
+        EN
+      </span>
+    </a>
+  );
+}
 
 // ─── Navbar ─────────────────────────────────────────────────────────────────
-function Navbar() {
+function Navbar({ dict, lang }: { dict: Dictionary; lang: Locale }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
+
+  const navItems = [
+    { label: dict.nav.home, href: "#ballina" },
+    { label: dict.nav.menu, href: "#menu" },
+    { label: dict.nav.about, href: "#rreth-nesh" },
+    { label: dict.nav.contact, href: "#kontakti" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -156,7 +136,7 @@ function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
-        <a href="#hero" className="flex items-center gap-3 group">
+        <a href="#ballina" className="flex items-center gap-3 group">
           <div className="relative">
             <BurgerIcon className="w-8 h-8 text-blanko-yellow transition-transform duration-300 group-hover:scale-110" />
             <div className="absolute inset-0 bg-blanko-yellow/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -173,21 +153,22 @@ function Navbar() {
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8">
-          {["Ballina", "Menu", "Rreth Nesh", "Kontakti"].map((item) => (
+          {navItems.map((item) => (
             <a
-              key={item}
-              href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}
+              key={item.href}
+              href={item.href}
               className="text-sm text-white/60 hover:text-blanko-yellow transition-colors duration-300 tracking-wide"
             >
-              {item}
+              {item.label}
             </a>
           ))}
+          <LanguageSwitcher lang={lang} />
           <a
             href="tel:+38343700217"
             className="flex items-center gap-2 bg-blanko-yellow text-black px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-blanko-orange transition-all duration-300 hover:scale-105"
           >
             <PhoneIcon className="w-4 h-4" />
-            Na Thirr
+            {dict.nav.callUs}
           </a>
         </div>
 
@@ -212,27 +193,30 @@ function Navbar() {
       {/* Mobile menu */}
       <div
         className={`md:hidden overflow-hidden transition-all duration-500 ${
-          menuOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
+          menuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
         <div className="px-6 pb-6 flex flex-col gap-4 bg-blanko-dark/95 backdrop-blur-xl border-t border-white/5">
-          {["Ballina", "Menu", "Rreth Nesh", "Kontakti"].map((item) => (
+          {navItems.map((item) => (
             <a
-              key={item}
-              href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}
+              key={item.href}
+              href={item.href}
               onClick={() => setMenuOpen(false)}
               className="text-white/70 hover:text-blanko-yellow transition-colors py-2"
             >
-              {item}
+              {item.label}
             </a>
           ))}
-          <a
-            href="tel:+38343700217"
-            className="flex items-center justify-center gap-2 bg-blanko-yellow text-black px-5 py-3 rounded-full font-semibold"
-          >
-            <PhoneIcon className="w-4 h-4" />
-            043 700 217
-          </a>
+          <div className="flex items-center justify-between">
+            <LanguageSwitcher lang={lang} />
+            <a
+              href="tel:+38343700217"
+              className="flex items-center justify-center gap-2 bg-blanko-yellow text-black px-5 py-3 rounded-full font-semibold"
+            >
+              <PhoneIcon className="w-4 h-4" />
+              043 700 217
+            </a>
+          </div>
         </div>
       </div>
     </nav>
@@ -240,7 +224,7 @@ function Navbar() {
 }
 
 // ─── Hero Section ───────────────────────────────────────────────────────────
-function HeroSection() {
+function HeroSection({ dict }: { dict: Dictionary }) {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
@@ -331,7 +315,7 @@ function HeroSection() {
         <div ref={badgeRef} className="inline-flex items-center gap-2 bg-blanko-yellow/10 border border-blanko-yellow/20 rounded-full px-5 py-2 mb-8">
           <FireIcon className="w-4 h-4 text-blanko-yellow" />
           <span className="text-sm text-blanko-yellow font-medium tracking-wide">
-            Tani i hapur — Mirë se vini!
+            {dict.hero.badge}
           </span>
         </div>
 
@@ -342,7 +326,7 @@ function HeroSection() {
             <span className="text-gradient">BLANKO</span>
           </span>
           <span className="block mt-4 text-xl sm:text-2xl md:text-3xl text-white/50 font-light tracking-[0.15em]">
-            BURGER & FAST FOOD
+            {dict.hero.subtitle}
           </span>
         </h1>
 
@@ -351,9 +335,9 @@ function HeroSection() {
           ref={subtitleRef}
           className="text-lg sm:text-xl text-white/40 max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          Shija autentike, përbërës të freskët dhe receta familjare.
+          {dict.hero.description}
           <br className="hidden sm:block" />
-          Çdo kafshim, një përvojë e re.
+          {dict.hero.descriptionLine2}
         </p>
 
         {/* CTAs */}
@@ -362,7 +346,7 @@ function HeroSection() {
             href="#menu"
             className="group relative inline-flex items-center gap-3 bg-blanko-yellow text-black px-8 py-4 rounded-full text-lg font-bold hover:bg-blanko-orange transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(245,166,35,0.3)]"
           >
-            Shiko Menunë
+            {dict.hero.viewMenu}
             <svg
               className="w-5 h-5 transition-transform group-hover:translate-x-1"
               fill="none"
@@ -381,8 +365,6 @@ function HeroSection() {
             043 700 217
           </a>
         </div>
-
-
       </div>
 
       {/* Bottom fade */}
@@ -392,7 +374,7 @@ function HeroSection() {
 }
 
 // ─── Marquee ────────────────────────────────────────────────────────────────
-function MarqueeSection() {
+function MarqueeSection({ dict }: { dict: Dictionary }) {
   const marqueeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -408,20 +390,10 @@ function MarqueeSection() {
     });
   }, []);
 
-  const items = [
-    "CLASSIC BURGER",
-    "★",
-    "BLANKO BURGER",
-    "★",
-    "DOUBLE BURGER",
-    "★",
-    "QEBAPA",
-    "★",
-    "POMFRIT",
-    "★",
-    "TOST",
-    "★",
-  ];
+  const names = dict.menu.items.map(
+    (item: { name: string }) => item.name.toUpperCase()
+  );
+  const items = names.flatMap((name: string) => [name, "★"]);
 
   return (
     <div
@@ -429,7 +401,7 @@ function MarqueeSection() {
       className="relative py-6 bg-blanko-yellow overflow-hidden"
     >
       <div className="marquee-inner flex whitespace-nowrap">
-        {[...items, ...items].map((item, i) => (
+        {[...items, ...items].map((item: string, i: number) => (
           <span
             key={i}
             className={`mx-6 text-2xl font-black tracking-wider ${
@@ -445,7 +417,7 @@ function MarqueeSection() {
 }
 
 // ─── Menu Section ───────────────────────────────────────────────────────────
-function MenuSection() {
+function MenuSection({ dict }: { dict: Dictionary }) {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
@@ -500,13 +472,13 @@ function MenuSection() {
         {/* Section header */}
         <div ref={titleRef} className="text-center mb-16">
           <span className="inline-block text-blanko-yellow text-sm font-semibold tracking-[0.3em] uppercase mb-4">
-            Çfarë Ofrojmë
+            {dict.menu.sectionTag}
           </span>
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-4">
-            Menuja Jonë
+            {dict.menu.title}
           </h2>
           <p className="text-white/40 text-lg max-w-xl mx-auto">
-            Të gjitha produktet tona bëhen me përbërës të freskët dhe me dashuri
+            {dict.menu.subtitle}
           </p>
         </div>
 
@@ -515,33 +487,38 @@ function MenuSection() {
           ref={cardsRef}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
         >
-          {menuItems.map((item, index) => (
-            <div
-              key={index}
-              className="menu-card group relative bg-blanko-card border border-blanko-card-border rounded-2xl p-6 cursor-default overflow-hidden"
-            >
-              {/* Hover glow */}
-              <div className="absolute inset-0 bg-gradient-to-b from-blanko-yellow/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          {dict.menu.items.map(
+            (
+              item: { name: string; description: string; tag: string },
+              index: number
+            ) => (
+              <div
+                key={index}
+                className="menu-card group relative bg-blanko-card border border-blanko-card-border rounded-2xl p-6 cursor-default overflow-hidden"
+              >
+                {/* Hover glow */}
+                <div className="absolute inset-0 bg-gradient-to-b from-blanko-yellow/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-              {/* Tag */}
-              <div className="relative z-10 flex items-center justify-between mb-4">
-                <span className="text-4xl">{item.emoji}</span>
-                <span className="text-xs font-semibold text-blanko-yellow/80 bg-blanko-yellow/10 px-3 py-1 rounded-full">
-                  {item.tag}
-                </span>
+                {/* Tag */}
+                <div className="relative z-10 flex items-center justify-between mb-4">
+                  <span className="text-4xl">{menuEmojis[index]}</span>
+                  <span className="text-xs font-semibold text-blanko-yellow/80 bg-blanko-yellow/10 px-3 py-1 rounded-full">
+                    {item.tag}
+                  </span>
+                </div>
+
+                <h3 className="relative z-10 text-lg font-bold text-white mb-2 group-hover:text-blanko-yellow transition-colors duration-300">
+                  {item.name}
+                </h3>
+                <p className="relative z-10 text-sm text-white/40 leading-relaxed">
+                  {item.description}
+                </p>
+
+                {/* Bottom accent line */}
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-blanko-yellow/30 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
               </div>
-
-              <h3 className="relative z-10 text-lg font-bold text-white mb-2 group-hover:text-blanko-yellow transition-colors duration-300">
-                {item.name}
-              </h3>
-              <p className="relative z-10 text-sm text-white/40 leading-relaxed">
-                {item.description}
-              </p>
-
-              {/* Bottom accent line */}
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-blanko-yellow/30 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-            </div>
-          ))}
+            )
+          )}
         </div>
       </div>
     </section>
@@ -549,7 +526,7 @@ function MenuSection() {
 }
 
 // ─── About Section ──────────────────────────────────────────────────────────
-function AboutSection() {
+function AboutSection({ dict }: { dict: Dictionary }) {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -601,7 +578,7 @@ function AboutSection() {
                       />
                     ))}
                   </div>
-                  <p className="text-white/50 text-sm">Cilësi Premium</p>
+                  <p className="text-white/50 text-sm">{dict.about.premiumQuality}</p>
                 </div>
               </div>
 
@@ -611,10 +588,10 @@ function AboutSection() {
                   <span className="text-2xl">👨‍👩‍👦</span>
                   <div>
                     <p className="text-white text-xs font-semibold">
-                      Biznes Familjar
+                      {dict.about.familyBusiness}
                     </p>
                     <p className="text-white/40 text-[10px]">
-                      Me dashuri për ju
+                      {dict.about.familyBusinessSub}
                     </p>
                   </div>
                 </div>
@@ -625,10 +602,10 @@ function AboutSection() {
                   <span className="text-2xl">✨</span>
                   <div>
                     <p className="text-white text-xs font-semibold">
-                      Tani i Hapur
+                      {dict.about.nowOpen}
                     </p>
                     <p className="text-white/40 text-[10px]">
-                      Gjithmonë fresh
+                      {dict.about.nowOpenSub}
                     </p>
                   </div>
                 </div>
@@ -640,33 +617,29 @@ function AboutSection() {
           <div>
             <div className="reveal-up">
               <span className="text-blanko-yellow text-sm font-semibold tracking-[0.3em] uppercase mb-4 block">
-                Historia Jonë
+                {dict.about.sectionTag}
               </span>
               <h2 className="text-4xl sm:text-5xl font-black text-white mb-6 leading-tight">
-                Një familje,
+                {dict.about.title}
                 <br />
-                <span className="text-gradient">një pasion.</span>
+                <span className="text-gradient">{dict.about.titleHighlight}</span>
               </h2>
             </div>
 
             <div className="reveal-up">
               <p className="text-white/50 text-lg leading-relaxed mb-6">
-                Te Blanko nuk është vetëm një fast-food — është shtëpia e shijes
-                autentike. I themeluar nga një familje e bashkuar me dashurinë
-                për ushqimin e mirë, çdo produkt përgatitet me përbërës të
-                freskët dhe receta që kalohen brez pas brezi.
+                {dict.about.paragraph1}
               </p>
               <p className="text-white/50 text-lg leading-relaxed mb-8">
-                Nga burgeri ynë klasik tek qebapat e famshme — çdo pjatë tregon
-                një histori shije. Ejani dhe bëhuni pjesë e familjes sonë.
+                {dict.about.paragraph2}
               </p>
             </div>
 
             <div className="reveal-up flex flex-wrap gap-6">
               {[
-                { number: "100%", label: "Përbërës Natyral" },
-                { number: "8+", label: "Produkte" },
-                { number: "❤️", label: "Bërë me dashuri" },
+                { number: "100%", label: dict.about.stats.natural },
+                { number: "8+", label: dict.about.stats.products },
+                { number: "❤️", label: dict.about.stats.love },
               ].map((stat, i) => (
                 <div key={i} className="text-center">
                   <div className="text-3xl font-black text-blanko-yellow mb-1">
@@ -686,7 +659,7 @@ function AboutSection() {
 }
 
 // ─── CTA Banner ─────────────────────────────────────────────────────────────
-function CTABanner() {
+function CTABanner({ dict }: { dict: Dictionary }) {
   const bannerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -721,11 +694,10 @@ function CTABanner() {
 
           <div className="relative z-10">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-4">
-              Ke uri? <span className="text-gradient">Na thirr!</span>
+              {dict.cta.title} <span className="text-gradient">{dict.cta.titleHighlight}</span>
             </h2>
             <p className="text-white/50 text-lg mb-8 max-w-lg mx-auto">
-              Porosit tani dhe shijo burgerin më të mirë në qytet. Gjithmonë të
-              freskët, gjithmonë të shijshëm.
+              {dict.cta.subtitle}
             </p>
             <a
               href="tel:+38343700217"
@@ -742,7 +714,7 @@ function CTABanner() {
 }
 
 // ─── Contact / Location Section ─────────────────────────────────────────────
-function ContactSection() {
+function ContactSection({ dict }: { dict: Dictionary }) {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -775,13 +747,13 @@ function ContactSection() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16 reveal-up">
           <span className="text-blanko-yellow text-sm font-semibold tracking-[0.3em] uppercase mb-4 block">
-            Na Gjeni
+            {dict.contact.sectionTag}
           </span>
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-4">
-            Kontakti
+            {dict.contact.title}
           </h2>
           <p className="text-white/40 text-lg max-w-xl mx-auto">
-            Na vizitoni ose na telefononi — jemi gjithmonë gati për ju
+            {dict.contact.subtitle}
           </p>
         </div>
 
@@ -791,7 +763,7 @@ function ContactSection() {
             <div className="inline-flex items-center justify-center w-14 h-14 bg-blanko-yellow/10 rounded-2xl mb-5 group-hover:bg-blanko-yellow/20 transition-colors">
               <PhoneIcon className="w-6 h-6 text-blanko-yellow" />
             </div>
-            <h3 className="text-white font-bold mb-2">Telefoni</h3>
+            <h3 className="text-white font-bold mb-2">{dict.contact.phone}</h3>
             <a
               href="tel:+38343700217"
               className="text-blanko-yellow text-lg font-semibold hover:underline"
@@ -805,9 +777,9 @@ function ContactSection() {
             <div className="inline-flex items-center justify-center w-14 h-14 bg-blanko-yellow/10 rounded-2xl mb-5 group-hover:bg-blanko-yellow/20 transition-colors">
               <MapPinIcon className="w-6 h-6 text-blanko-yellow" />
             </div>
-            <h3 className="text-white font-bold mb-2">Lokacioni</h3>
+            <h3 className="text-white font-bold mb-2">{dict.contact.location}</h3>
             <p className="text-white/50">
-              Na gjeni në Google Maps
+              {dict.contact.locationText}
               <br />
               <span className="text-blanko-yellow text-sm">Te Blanko</span>
             </p>
@@ -818,9 +790,9 @@ function ContactSection() {
             <div className="inline-flex items-center justify-center w-14 h-14 bg-blanko-yellow/10 rounded-2xl mb-5 group-hover:bg-blanko-yellow/20 transition-colors">
               <ClockIcon className="w-6 h-6 text-blanko-yellow" />
             </div>
-            <h3 className="text-white font-bold mb-2">Orari</h3>
+            <h3 className="text-white font-bold mb-2">{dict.contact.hours}</h3>
             <p className="text-white/50 text-sm">
-              E Hënë - E Diel
+              {dict.contact.hoursText}
               <br />
               <span className="text-blanko-yellow font-semibold">
                 10:00 — 23:00
@@ -836,11 +808,10 @@ function ContactSection() {
             <div className="relative z-10 text-center">
               <MapPinIcon className="w-16 h-16 text-blanko-yellow/30 mx-auto mb-4" />
               <p className="text-white/30 text-lg font-medium mb-2">
-                Google Maps
+                {dict.contact.mapPlaceholder}
               </p>
               <p className="text-white/20 text-sm max-w-md mx-auto">
-                Vendosni Google Maps embed URL këtu pasi biznesi të regjistrohet
-                në Google My Business
+                {dict.contact.mapPlaceholderText}
               </p>
             </div>
           </div>
@@ -851,7 +822,14 @@ function ContactSection() {
 }
 
 // ─── Footer ─────────────────────────────────────────────────────────────────
-function Footer() {
+function Footer({ dict, lang }: { dict: Dictionary; lang: Locale }) {
+  const navItems = [
+    { label: dict.nav.home, href: "#ballina" },
+    { label: dict.nav.menu, href: "#menu" },
+    { label: dict.nav.about, href: "#rreth-nesh" },
+    { label: dict.nav.contact, href: "#kontakti" },
+  ];
+
   return (
     <footer className="border-t border-white/5 py-12">
       <div className="max-w-7xl mx-auto px-6">
@@ -871,13 +849,13 @@ function Footer() {
 
           {/* Links */}
           <div className="flex items-center gap-8">
-            {["Ballina", "Menu", "Rreth Nesh", "Kontakti"].map((item) => (
+            {navItems.map((item) => (
               <a
-                key={item}
-                href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}
+                key={item.href}
+                href={item.href}
                 className="text-sm text-white/30 hover:text-blanko-yellow transition-colors"
               >
-                {item}
+                {item.label}
               </a>
             ))}
           </div>
@@ -894,8 +872,7 @@ function Footer() {
 
         <div className="mt-8 pt-8 border-t border-white/5 text-center">
           <p className="text-white/20 text-xs">
-            &copy; {new Date().getFullYear()} Te Blanko. Të gjitha të drejtat e
-            rezervuara.
+            &copy; {new Date().getFullYear()} Te Blanko. {dict.footer.rights}
           </p>
         </div>
       </div>
@@ -904,7 +881,13 @@ function Footer() {
 }
 
 // ─── Main Page ──────────────────────────────────────────────────────────────
-export default function Home() {
+export default function HomePage({
+  dict,
+  lang,
+}: {
+  dict: Dictionary;
+  lang: Locale;
+}) {
   useEffect(() => {
     const smoother = ScrollSmoother.create({
       smooth: 1.5,
@@ -921,19 +904,19 @@ export default function Home() {
   return (
     <>
       {/* Navbar stays OUTSIDE the wrapper — it's position:fixed */}
-      <Navbar />
+      <Navbar dict={dict} lang={lang} />
 
       <div id="smooth-wrapper">
         <div id="smooth-content">
           <main>
-            <HeroSection />
-            <MarqueeSection />
-            <MenuSection />
-            <AboutSection />
-            <CTABanner />
-            <ContactSection />
+            <HeroSection dict={dict} />
+            <MarqueeSection dict={dict} />
+            <MenuSection dict={dict} />
+            <AboutSection dict={dict} />
+            <CTABanner dict={dict} />
+            <ContactSection dict={dict} />
           </main>
-          <Footer />
+          <Footer dict={dict} lang={lang} />
         </div>
       </div>
     </>

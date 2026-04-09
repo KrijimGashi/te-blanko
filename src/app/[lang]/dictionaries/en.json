@@ -1,0 +1,100 @@
+{
+  "nav": {
+    "home": "Home",
+    "menu": "Menu",
+    "about": "About Us",
+    "contact": "Contact",
+    "callUs": "Call Us"
+  },
+  "hero": {
+    "badge": "Now open \u2014 Welcome!",
+    "subtitle": "BURGER & FAST FOOD",
+    "description": "Authentic flavors, fresh ingredients and family recipes.",
+    "descriptionLine2": "Every bite, a new experience.",
+    "viewMenu": "View Menu"
+  },
+  "menu": {
+    "sectionTag": "What We Offer",
+    "title": "Our Menu",
+    "subtitle": "All our products are made with fresh ingredients and with love",
+    "items": [
+      {
+        "name": "Classic Burger",
+        "description": "Our classic burger with fresh meat, lettuce, tomato and special sauce",
+        "tag": "Classic"
+      },
+      {
+        "name": "Blanko Burger",
+        "description": "The house specialty - the secret recipe of the Blanko family",
+        "tag": "Bestseller"
+      },
+      {
+        "name": "Double Burger",
+        "description": "Double the meat, double the pleasure - for those who want more",
+        "tag": "Popular"
+      },
+      {
+        "name": "Chicken Burger",
+        "description": "Perfectly grilled chicken with fresh vegetables",
+        "tag": "Light"
+      },
+      {
+        "name": "Qebapa",
+        "description": "5 pieces of grilled qebapa, traditional recipe",
+        "tag": "5 pcs"
+      },
+      {
+        "name": "Toast",
+        "description": "Warm toast with cheese and toppings of your choice",
+        "tag": "Classic"
+      },
+      {
+        "name": "French Fries",
+        "description": "Crispy, crunchy and golden fried potatoes - perfection",
+        "tag": "Side"
+      },
+      {
+        "name": "House Sauces",
+        "description": "Homemade sauces with secret family recipes",
+        "tag": "Homemade"
+      }
+    ]
+  },
+  "about": {
+    "sectionTag": "Our Story",
+    "title": "One family,",
+    "titleHighlight": "one passion.",
+    "paragraph1": "Te Blanko is not just a fast-food \u2014 it's the home of authentic taste. Founded by a family united by the love for great food, every product is prepared with fresh ingredients and recipes passed down through generations.",
+    "paragraph2": "From our classic burger to our famous qebapa \u2014 every dish tells a story of flavor. Come and become part of our family.",
+    "stats": {
+      "natural": "Natural Ingredients",
+      "products": "Products",
+      "love": "Made with love"
+    },
+    "familyBusiness": "Family Business",
+    "familyBusinessSub": "Made with love for you",
+    "nowOpen": "Now Open",
+    "nowOpenSub": "Always fresh",
+    "premiumQuality": "Premium Quality"
+  },
+  "cta": {
+    "title": "Hungry?",
+    "titleHighlight": "Call us!",
+    "subtitle": "Order now and enjoy the best burger in town. Always fresh, always delicious."
+  },
+  "contact": {
+    "sectionTag": "Find Us",
+    "title": "Contact",
+    "subtitle": "Visit us or call us \u2014 we're always ready for you",
+    "phone": "Phone",
+    "location": "Location",
+    "locationText": "Find us on Google Maps",
+    "hours": "Hours",
+    "hoursText": "Monday - Sunday",
+    "mapPlaceholder": "Google Maps",
+    "mapPlaceholderText": "Google Maps embed will be added once the business is registered on Google My Business"
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "nav": {
+    "home": "Ballina",
+    "menu": "Menu",
+    "about": "Rreth Nesh",
+    "contact": "Kontakti",
+    "callUs": "Na Thirr"
+  },
+  "hero": {
+    "badge": "Tani i hapur \u2014 Mir\u00eb se vini!",
+    "subtitle": "BURGER & FAST FOOD",
+    "description": "Shija autentike, p\u00ebrb\u00ebr\u00ebs t\u00eb fresk\u00ebt dhe receta familjare.",
+    "descriptionLine2": "\u00c7do kafshim, nj\u00eb p\u00ebrvoj\u00eb e re.",
+    "viewMenu": "Shiko Menun\u00eb"
+  },
+  "menu": {
+    "sectionTag": "\u00c7far\u00eb Ofrojm\u00eb",
+    "title": "Menuja Jon\u00eb",
+    "subtitle": "T\u00eb gjitha produktet tona b\u00ebhen me p\u00ebrb\u00ebr\u00ebs t\u00eb fresk\u00ebt dhe me dashuri",
+    "items": [
+      {
+        "name": "Classic Burger",
+        "description": "Burgeri yn\u00eb klasik me mish t\u00eb fresk\u00ebt, sallat\u00eb, domate dhe salc\u00eb speciale",
+        "tag": "Klasik"
+      },
+      {
+        "name": "Blanko Burger",
+        "description": "Specialiteti i sht\u00ebpis\u00eb - receta sekrete e familjes Blanko",
+        "tag": "Bestseller"
+      },
+      {
+        "name": "Double Burger",
+        "description": "Dyfish mishi, dyfish k\u00ebnaq\u00ebsia - p\u00ebr ata q\u00eb duan m\u00eb shum\u00eb",
+        "tag": "Popullar"
+      },
+      {
+        "name": "Burger me mish pule",
+        "description": "Mish pule i pjekur n\u00eb m\u00ebnyr\u00eb perfekte me perime t\u00eb fresk\u00ebta",
+        "tag": "I leht\u00eb"
+      },
+      {
+        "name": "Qebapa",
+        "description": "5 cop\u00eb qebapa t\u00eb pjekur n\u00eb zgar\u00eb, recet\u00eb tradicionale",
+        "tag": "5 cop\u00eb"
+      },
+      {
+        "name": "Tost",
+        "description": "Tost i ngroht\u00eb me djath\u00eb dhe p\u00ebrb\u00ebr\u00ebs sipas d\u00ebshir\u00ebs",
+        "tag": "Klasik"
+      },
+      {
+        "name": "Pomfrit",
+        "description": "Patate t\u00eb skuqura, t\u00eb krokanta dhe t\u00eb arta - p\u00ebrsosur",
+        "tag": "An\u00eb"
+      },
+      {
+        "name": "Sos\u00eb t\u00eb shpis\u00eb",
+        "description": "Sos\u00eb t\u00eb b\u00ebra n\u00eb sht\u00ebpi me receta sekrete familjare",
+        "tag": "Sht\u00ebpiake"
+      }
+    ]
+  },
+  "about": {
+    "sectionTag": "Historia Jon\u00eb",
+    "title": "Nj\u00eb familje,",
+    "titleHighlight": "nj\u00eb pasion.",
+    "paragraph1": "Te Blanko nuk \u00ebsht\u00eb vet\u00ebm nj\u00eb fast-food \u2014 \u00ebsht\u00eb sht\u00ebpia e shijes autentike. I themeluar nga nj\u00eb familje e bashkuar me dashuri p\u00ebr ushqimin e mir\u00eb, \u00e7do produkt p\u00ebrgatitet me p\u00ebrb\u00ebr\u00ebs t\u00eb fresk\u00ebt dhe receta q\u00eb kalohen brez pas brezi.",
+    "paragraph2": "Nga burgeri yn\u00eb klasik tek qebapat e famshme \u2014 \u00e7do pjat\u00eb tregon nj\u00eb histori shije. Ejani dhe b\u00ebhuni pjes\u00eb e familjes son\u00eb.",
+    "stats": {
+      "natural": "P\u00ebrb\u00ebr\u00ebs Natyral",
+      "products": "Produkte",
+      "love": "B\u00ebr\u00eb me dashuri"
+    },
+    "familyBusiness": "Biznes Familjar",
+    "familyBusinessSub": "Me dashuri p\u00ebr ju",
+    "nowOpen": "Tani i Hapur",
+    "nowOpenSub": "Gjithmon\u00eb fresh",
+    "premiumQuality": "Cil\u00ebsi Premium"
+  },
+  "cta": {
+    "title": "Ke uri?",
+    "titleHighlight": "Na thirr!",
+    "subtitle": "Porosit tani dhe shijo burgerin m\u00eb t\u00eb mir\u00eb n\u00eb qytet. Gjithmon\u00eb t\u00eb fresk\u00ebt, gjithmon\u00eb t\u00eb shijsh\u00ebm."
+  },
+  "contact": {
+    "sectionTag": "Na Gjeni",
+    "title": "Kontakti",
+    "subtitle": "Na vizitoni ose na telefononi \u2014 jemi gjithmon\u00eb gati p\u00ebr ju",
+    "phone": "Telefoni",
+    "location": "Lokacioni",
+    "locationText": "Na gjeni n\u00eb Google Maps",
+    "hours": "Orari",
+    "hoursText": "E H\u00ebn\u00eb - E Diel",
+    "mapPlaceholder": "Google Maps",
+    "mapPlaceholderText": "Vendosni Google Maps embed URL k\u00ebtu pasi biznesi t\u00eb regjistrohet n\u00eb Google My Business"
+  },
+  "footer": {
+    "rights": "T\u00eb gjitha t\u00eb drejtat e rezervuara."
+  }
+}
