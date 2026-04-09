@@ -19,6 +19,10 @@ function smoothScrollTo(hash: string, e?: React.MouseEvent) {
   const smoother = ScrollSmoother.get();
   if (smoother) {
     smoother.scrollTo(hash, true, "top 80px");
+  } else {
+    // Mobile fallback — native smooth scroll
+    const el = document.querySelector(hash);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 }
 
@@ -1162,10 +1166,13 @@ export default function HomePage({
   const preloaderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+    if (isMobile) return;
+
     const smoother = ScrollSmoother.create({
       smooth: 1.5,
       effects: true,
-      smoothTouch: 0.1,
       normalizeScroll: true,
     });
 
