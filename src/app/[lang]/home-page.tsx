@@ -147,18 +147,13 @@ function Navbar({ dict, lang }: { dict: Dictionary; lang: Locale }) {
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <a href="#ballina" onClick={(e) => smoothScrollTo("#ballina", e)} className="flex items-center gap-3 group">
-          <div className="relative">
-            <BurgerIcon className="w-8 h-8 text-blanko-yellow transition-transform duration-300 group-hover:scale-110" />
-            <div className="absolute inset-0 bg-blanko-yellow/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-xs text-blanko-yellow/70 font-medium tracking-[0.2em] uppercase leading-none">
-              Te
-            </span>
-            <span className="text-xl font-bold text-white tracking-wider leading-none">
-              BLANKO
-            </span>
-          </div>
+          <Image
+            src="/images/logo.png"
+            alt="Te Blanko"
+            width={48}
+            height={48}
+            className="rounded-full transition-transform duration-300 group-hover:scale-110"
+          />
         </a>
 
         {/* Desktop Nav */}
@@ -1098,15 +1093,13 @@ function Footer({ dict, lang }: { dict: Dictionary; lang: Locale }) {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Logo */}
           <div className="flex items-center gap-3">
-            <BurgerIcon className="w-7 h-7 text-blanko-yellow" />
-            <div className="flex flex-col">
-              <span className="text-[10px] text-blanko-yellow/70 font-medium tracking-[0.2em] uppercase leading-none">
-                Te
-              </span>
-              <span className="text-lg font-bold text-white tracking-wider leading-none">
-                BLANKO
-              </span>
-            </div>
+            <Image
+              src="/images/logo.png"
+              alt="Te Blanko"
+              width={40}
+              height={40}
+              className="rounded-full"
+            />
           </div>
 
           {/* Links */}
@@ -1165,6 +1158,8 @@ export default function HomePage({
   lang: Locale;
 }) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [loading, setLoading] = useState(true);
+  const preloaderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const smoother = ScrollSmoother.create({
@@ -1179,6 +1174,45 @@ export default function HomePage({
     };
   }, []);
 
+  // Preloader animation
+  useEffect(() => {
+    if (!preloaderRef.current) return;
+
+    const tl = gsap.timeline({
+      onComplete: () => setLoading(false),
+    });
+
+    // Logo scales in and pulses
+    tl.fromTo(
+      preloaderRef.current.querySelector(".preloader-logo"),
+      { scale: 0, opacity: 0, rotation: -20 },
+      { scale: 1, opacity: 1, rotation: 0, duration: 0.8, ease: "back.out(1.7)" }
+    )
+      // Glow ring pulses
+      .fromTo(
+        preloaderRef.current.querySelector(".preloader-ring"),
+        { scale: 0.8, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.5, ease: "power2.out" },
+        "-=0.3"
+      )
+      // Text fades in
+      .fromTo(
+        preloaderRef.current.querySelector(".preloader-text"),
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" },
+        "-=0.2"
+      )
+      // Hold for a moment
+      .to({}, { duration: 0.4 })
+      // Fade everything out
+      .to(preloaderRef.current, {
+        opacity: 0,
+        scale: 1.05,
+        duration: 0.5,
+        ease: "power2.inOut",
+      });
+  }, []);
+
   // Pause/resume ScrollSmoother when lightbox opens/closes
   useEffect(() => {
     const smoother = ScrollSmoother.get();
@@ -1188,6 +1222,28 @@ export default function HomePage({
 
   return (
     <>
+      {/* Preloader */}
+      {loading && (
+        <div
+          ref={preloaderRef}
+          className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-blanko-dark"
+        >
+          <div className="relative">
+            <div className="preloader-ring absolute -inset-4 border-2 border-blanko-yellow/30 rounded-full" />
+            <Image
+              src="/images/logo.png"
+              alt="Te Blanko"
+              width={120}
+              height={120}
+              className="preloader-logo rounded-full"
+              priority
+            />
+          </div>
+          <p className="preloader-text mt-6 text-blanko-yellow/60 text-sm font-medium tracking-[0.3em] uppercase">
+            Burger & Fast Food
+          </p>
+        </div>
+      )}
       {/* Fixed elements stay OUTSIDE the wrapper */}
       <Navbar dict={dict} lang={lang} />
 

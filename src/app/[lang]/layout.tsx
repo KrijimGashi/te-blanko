@@ -62,6 +62,9 @@ export default async function LangLayout({
       className={`${inter.variable} ${spaceGrotesk.variable} antialiased`}
     >
       <head>
+        <link rel="alternate" hrefLang="sq" href="https://teblanko.com/sq" />
+        <link rel="alternate" hrefLang="en" href="https://teblanko.com/en" />
+        <link rel="alternate" hrefLang="x-default" href="https://teblanko.com/sq" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
