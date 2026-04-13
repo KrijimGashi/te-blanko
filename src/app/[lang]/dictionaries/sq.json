@@ -17,6 +17,7 @@
     "sectionTag": "\u00c7far\u00eb Ofrojm\u00eb",
     "title": "Menuja Jon\u00eb",
     "subtitle": "T\u00eb gjitha produktet tona b\u00ebhen me p\u00ebrb\u00ebr\u00ebs t\u00eb fresk\u00ebt dhe me dashuri",
+    "orderHint": "Shto produkte me + dhe porosit direkt n\u00eb WhatsApp",
     "items": [
       {
         "name": "Classic Burger",
@@ -101,6 +102,13 @@
     "hoursText": "E H\u00ebn\u00eb - E Diel",
     "mapPlaceholder": "Google Maps",
     "mapPlaceholderText": "Vendosni Google Maps embed URL k\u00ebtu pasi biznesi t\u00eb regjistrohet n\u00eb Google My Business"
+  },
+  "order": {
+    "orderOnWhatsapp": "Porosit n\u00eb WhatsApp",
+    "total": "Totali",
+    "greeting": "P\u00ebrsh\u00ebndetje! Do t\u00eb doja t\u00eb porosisja:",
+    "totalLabel": "Totali",
+    "thanks": "Faleminderit!"
   },
   "gallery": {
     "sectionTag": "Galeria",

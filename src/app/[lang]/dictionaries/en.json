@@ -17,6 +17,7 @@
     "sectionTag": "What We Offer",
     "title": "Our Menu",
     "subtitle": "All our products are made with fresh ingredients and with love",
+    "orderHint": "Add items with + and order directly on WhatsApp",
     "items": [
       {
         "name": "Classic Burger",
@@ -101,6 +102,13 @@
     "hoursText": "Monday - Sunday",
     "mapPlaceholder": "Google Maps",
     "mapPlaceholderText": "Google Maps embed will be added once the business is registered on Google My Business"
+  },
+  "order": {
+    "orderOnWhatsapp": "Order on WhatsApp",
+    "total": "Total",
+    "greeting": "Hello! I would like to order:",
+    "totalLabel": "Total",
+    "thanks": "Thank you!"
   },
   "gallery": {
     "sectionTag": "Gallery",

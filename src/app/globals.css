@@ -92,3 +92,8 @@ body {
 .hamburger-line {
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+/* Safe area for iPhone bottom bar */
+.safe-area-bottom {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+}
